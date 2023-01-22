@@ -16,7 +16,7 @@ function FormRate() {
     const [Rate , setRate]= React.useState(0)
     const params = new URLSearchParams(loaction.search)
     const {mutate, isLoading} = useUpdateMutation("KEY", '/rate_order_by_form/'+params.get('param'))
-    const {data , isLoadingL:Loading, isSuccess} = useGetQuery('KEY','/form_info/' +params.get('param'))
+    const {data , isLoadingL:Loading, isSuccess, isFetching} = useGetQuery('KEY','/form_info/' +params.get('param'))
    
    const handelSubmit = (values)=>{
     mutate({
@@ -27,51 +27,67 @@ function FormRate() {
    const handleRating = (rate) => {
     setRate(rate)
   }
-  if(Loading){
-    return <Spinner />
-  }
-  if(isSuccess){
-    if(data?.order_info?.user_feedback){
-        history('form_successful')
-    }else{
-       
-    }
-  }
+  if(Loading||isFetching ){
+    return (
+        <div className='waiting'>
+        <Spinner className='text-[#0ea0a8]'/>
+        </div>
+    )
 
-  return (
-    <div className='form-home'>
-        <div className='w-full flex justify-center'>
-            <img src='/logo/logo.svg' className='h-20' alt='logo'/>
-        </div>
-        <div className='form-input w-[70vw] md:w-[50vw]'>
-            <p className='text-white sm:text-[20px] md:text-[24px] font-semibold '>تم توصيل طلبك بنجاح</p>
-            <p className='primary sm:text-[17px] md:text-[20px] font-semibold flex justify-center items-center'>تقييم الطلب <img src='/star.svg' alt='star' className='h-5  m-1 svg'  /> </p>
-            <strong>كيف كانت تجربة طلبك في ساعي؟</strong>
-            <strong className='block'>(تقييمك وملاحظاتك تساعدنا في تطوير خدمة ساعي)</strong>
-            <div className='my-7 text-center w-full  '><Rating  initialValue={1}  size={30} onClick={handleRating}/></div>
-            <Formik  onSubmit={handelSubmit} validationSchema={getValidationSchema()} initialValues={{sugg:""}}>
-                {
-                    (formik)=>(
-                          <Form className="formik">
-                    <label className='font-bold text-[10px]  md:text-[15px] w-[80%]'>شاركنا بأفكارك ومقترحانك</label>
-                <div className='w-full'> 
-                <Field
-                    name="sugg"
-                    
-                    />
-                    {/* <ErrorMessage */}
-                    {/* name='sugg' />  */}
-                   <span className='text-red-500  w-full text-center font-semibold p-1  block ' >{formik.errors.sugg}</span>
+  }
+ 
+    if(!(data?.order_info?.user_feedback)){
+        return (
+            <div className='form-home'>
+                <div className='w-full flex justify-center'>
+                    <img src='/logo/logo.svg' className='h-20' alt='logo'/>
                 </div>
-                    <LoadingButton isLoading={isLoading} type='submit'  >تأكيد</LoadingButton>
-                </Form>
-                    )
-                }
-              
-            </Formik>
-        </div>
-    </div>
-  )
+                <div className='form-input w-[70vw] md:w-[50vw]'>
+                    <p className='text-white sm:text-[20px] md:text-[24px] font-semibold '>تم توصيل طلبك بنجاح</p>
+                    <p className='primary sm:text-[17px] md:text-[20px] font-semibold flex justify-center items-center'>تقييم الطلب <img src='/star.svg' alt='star' className='h-5  m-1 svg'  /> </p>
+                    <strong>كيف كانت تجربة طلبك في ساعي؟</strong>
+                    <strong className='block'>(تقييمك وملاحظاتك تساعدنا في تطوير خدمة ساعي)</strong>
+                    <div className='my-7 text-center w-full  '><Rating  initialValue={1}  size={30} onClick={handleRating}/></div>
+                    <Formik  onSubmit={handelSubmit} validationSchema={getValidationSchema()} initialValues={{sugg:""}}>
+                        {
+                            (formik)=>(
+                                  <Form className="formik">
+                            <label className='font-bold text-[10px]  md:text-[15px] w-[80%]'>شاركنا بأفكارك ومقترحانك</label>
+                        <div className='w-full'> 
+                        <Field
+                            name="sugg"
+                            
+                            />
+                            {/* <ErrorMessage */}
+                            {/* name='sugg' />  */}
+                           <span className='text-red-500  w-full text-center font-semibold p-1  block ' >{formik.errors.sugg}</span>
+                        </div>
+                            <LoadingButton isLoading={isLoading} type='submit'  >تأكيد</LoadingButton>
+                        </Form>
+                            )
+                        }
+                      
+                    </Formik>
+                </div>
+            </div>
+        )
+        
+    }
+        
+        return(
+              <div className='form-home'>
+                <div className='w-full flex justify-center'>
+                    <img src='/logo/logo.svg' className='h-20' alt='logo'/>
+                </div>
+                <p className='text-white font-bold bg-[#c3c3d7] w-[30vw] md:w-[15vw] text-center my-7 p-2 rounded-[20px] animate-bounce mx-auto'>تم توصيل طلبك ب نجاح </p>
+                </div>
+                        )
+  
+
+
+  
+  
+
 }
 
 export default FormRate
