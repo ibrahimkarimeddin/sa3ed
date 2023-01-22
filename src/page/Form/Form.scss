@@ -1,0 +1,57 @@
+$primary:#56508c;
+$secondary:#0ea0a8;
+$form_backFround:#c3c3d7 ;
+
+
+.form-home{
+    background-image:linear-gradient(220deg , $primary ,$primary, $secondary);
+    height: 100vh;
+    padding: 30px;
+    width: 100vw;
+}
+.form-input{
+    background-color: $form_backFround;
+    height: 70vh;
+   
+
+    font-family: 'Times New Roman', Times, serif;
+    margin: 7px auto;
+    border-radius: 20px;
+    text-align: center;
+    padding: 40px 0 10px 0;
+    
+    .primary{
+        color: $primary;
+    }
+}
+svg{
+    display: inline;
+}
+.formik{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    input{
+        text-decoration: none;
+        border: none;
+        padding: 7px;
+        border-radius: 6px;
+        margin: 0 0 10px 0;
+        width: 80%;
+    }
+    button{
+        color: white;
+        background-color: $primary;
+        border-radius: 6px;
+        width: 80%;
+    }
+}
+.svg{
+    fill: red !important;
+    
+}
+input{
+ outline: none;
+ padding: 1px;
+}

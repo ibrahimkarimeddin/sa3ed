@@ -1,0 +1,24 @@
+$primary: #fed02d;
+$secondary:#597f5c ;
+
+.primary{
+    color: $primary;
+}
+.secondary{
+    color:$secondary
+}
+.bg_primary{
+    background-color: $primary;
+}
+.bg_secondary{
+    background-color:$secondary
+}
+.border_primary{
+    color: $primary;
+}
+.border_secondary{
+    color:$secondary
+}
+body{
+    background: rgb(249 250 251);
+}
